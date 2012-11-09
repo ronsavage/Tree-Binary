@@ -17,31 +17,31 @@ name: Tree-Binary
 provides:
   Tree::Binary:
     file: lib/Tree/Binary.pm
-    version: 1.00
+    version: 1.05
   Tree::Binary::Search:
     file: lib/Tree/Binary/Search.pm
-    version: 1.00
+    version: 1.05
   Tree::Binary::Search::Node:
     file: lib/Tree/Binary/Search/Node.pm
-    version: 1.00
+    version: 1.05
   Tree::Binary::Visitor::Base:
     file: lib/Tree/Binary/Visitor/Base.pm
-    version: 1.00
+    version: 1.05
   Tree::Binary::Visitor::BreadthFirstTraversal:
     file: lib/Tree/Binary/Visitor/BreadthFirstTraversal.pm
-    version: 1.00
+    version: 1.05
   Tree::Binary::Visitor::InOrderTraversal:
     file: lib/Tree/Binary/Visitor/InOrderTraversal.pm
-    version: 1.00
+    version: 1.05
   Tree::Binary::Visitor::PostOrderTraversal:
     file: lib/Tree/Binary/Visitor/PostOrderTraversal.pm
-    version: 1.00
+    version: 1.05
   Tree::Binary::Visitor::PreOrderTraversal:
     file: lib/Tree/Binary/Visitor/PreOrderTraversal.pm
-    version: 1.00
+    version: 1.05
   Tree::Binary::VisitorFactory:
     file: lib/Tree/Binary/VisitorFactory.pm
-    version: 1.00
+    version: 1.05
 requires:
   Scalar::Util: 1.1
   Test::Exception: 0.15
@@ -49,4 +49,4 @@ requires:
   warnings: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 1.00
+version: 1.05

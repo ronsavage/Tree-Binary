@@ -1,5 +1,11 @@
 Revision history for Perl extension Tree-Binary.
 
+1.05  Fri Nov  9 15:11:00 2012
+	- No code changes.
+	- Bump the version # to 1.05 to avoid problems with old versions of the Tree distro, which also had
+		a module called Tree::Binary, which causes PAUSE to not index Tree::Binary in this distro.
+		V 1.05 was chosen because the most recent version of Tree I released was V 1.04.
+
 1.00  Thu Nov  8 12:38:00 2012
 	- Ron Savage is now co-maint.
 	- Warning for users of the Tree module, which also used to have a module called Tree::Binary:

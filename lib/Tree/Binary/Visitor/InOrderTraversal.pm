@@ -8,7 +8,7 @@ use Scalar::Util qw(blessed);
 
 use Tree::Binary::Visitor::Base;
 
-our $VERSION = '1.00';
+our $VERSION = '1.05';
 
 our @ISA = qw(Tree::Binary::Visitor::Base);
 
