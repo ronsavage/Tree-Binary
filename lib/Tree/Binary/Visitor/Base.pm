@@ -4,7 +4,7 @@ package Tree::Binary::Visitor::Base;
 use strict;
 use warnings;
 
-our $VERSION = '0.04';
+our $VERSION = '1.00';
 
 ### constructor
 

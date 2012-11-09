@@ -4,7 +4,7 @@ package Tree::Binary::VisitorFactory;
 use strict;
 use warnings;
 
-our $VERSION = '0.04';
+our $VERSION = '1.00';
 
 sub new { 
     my ($class) = @_;
