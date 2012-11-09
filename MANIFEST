@@ -20,6 +20,7 @@ t/11_Tree_Binary_exceptions_test.t
 t/12_Tree_Binary_clone_test.t
 t/13_Tree_Binary_mirror_test.t
 t/14_Tree_Binary_leak_test.t
+t/15_Tree_Binary_delete_test.t
 t/20_Tree_Binary_Search_test.t
 t/21_Tree_Binary_Search_delete_test.t
 t/22_Tree_Binary_Search_exceptions_test.t
