@@ -1,0 +1,82 @@
+{
+   "abstract" : "An Object Oriented Binary Tree for Perl",
+   "author" : [
+      "Stevan Little (stevan@iinteractive.com)"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "Module::Build version 0.4003, CPAN::Meta::Converter version 2.120630",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Tree-Binary",
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Test::More" : "0.98",
+            "Test::Pod" : "1.44"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.38"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Scalar::Util" : "1.1",
+            "Test::Exception" : "0.15",
+            "strict" : "0",
+            "warnings" : "0"
+         }
+      }
+   },
+   "provides" : {
+      "Tree::Binary" : {
+         "file" : "lib/Tree/Binary.pm",
+         "version" : "0.07"
+      },
+      "Tree::Binary::Search" : {
+         "file" : "lib/Tree/Binary/Search.pm",
+         "version" : "0.06"
+      },
+      "Tree::Binary::Search::Node" : {
+         "file" : "lib/Tree/Binary/Search/Node.pm",
+         "version" : "0.05"
+      },
+      "Tree::Binary::Visitor::Base" : {
+         "file" : "lib/Tree/Binary/Visitor/Base.pm",
+         "version" : "0.04"
+      },
+      "Tree::Binary::Visitor::BreadthFirstTraversal" : {
+         "file" : "lib/Tree/Binary/Visitor/BreadthFirstTraversal.pm",
+         "version" : "0.05"
+      },
+      "Tree::Binary::Visitor::InOrderTraversal" : {
+         "file" : "lib/Tree/Binary/Visitor/InOrderTraversal.pm",
+         "version" : "0.05"
+      },
+      "Tree::Binary::Visitor::PostOrderTraversal" : {
+         "file" : "lib/Tree/Binary/Visitor/PostOrderTraversal.pm",
+         "version" : "0.05"
+      },
+      "Tree::Binary::Visitor::PreOrderTraversal" : {
+         "file" : "lib/Tree/Binary/Visitor/PreOrderTraversal.pm",
+         "version" : "0.05"
+      },
+      "Tree::Binary::VisitorFactory" : {
+         "file" : "lib/Tree/Binary/VisitorFactory.pm",
+         "version" : "0.04"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ]
+   },
+   "version" : "0.07"
+}

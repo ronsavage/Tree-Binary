@@ -34,7 +34,7 @@ sub _init {
 	my ($self, $node) = @_;
     (defined($node)) || die "Insufficient Arguments : you must provide a node value";
     # set the value of the unique id
-    ($self->{_uid}) = ("$self" =~ /\((.*?)\)$/);    
+    ($self->{_uid}) = ("$self" =~ /\((.*?)\)$/);
 	# set the value of the node
 	$self->{_node}   = $node;
     # create the child nodes
@@ -42,7 +42,7 @@ sub _init {
     $self->{_right}  = undef;
     # initialize the parent and depth here
     $self->{_parent} = undef;
-    $self->{_depth}  = 0;    
+    $self->{_depth}  = 0;
 }
 
 ## ----------------------------------------------------------------------------
@@ -63,45 +63,45 @@ sub setUID {
 sub setLeft {
     my ($self, $tree) = @_;
     (blessed($tree) && $tree->isa("Tree::Binary"))
-        || die "Insufficient Arguments : left argument must be a Tree::Binary object";   
+        || die "Insufficient Arguments : left argument must be a Tree::Binary object";
 	$tree->{_parent} = $self;
     $self->{_left} = $tree;
     unless ($tree->isLeaf()) {
         $tree->fixDepth();
     }
     else {
-        $tree->{_depth} = $self->getDepth() + 1; 
+        $tree->{_depth} = $self->getDepth() + 1;
     }
     $self;
 }
 
 sub removeLeft {
     my ($self) = @_;
-    ($self->hasLeft()) || die "Illegal Operation: cannot remove node that doesnt exist";    
+    ($self->hasLeft()) || die "Illegal Operation: cannot remove node that doesnt exist";
     my $left = $self->{_left};
-    $left->{_parent} = undef;   
+    $left->{_parent} = undef;
     unless ($left->isLeaf()) {
         $left->fixDepth();
     }
     else {
-        $left->{_depth} = 0; 
+        $left->{_depth} = 0;
     }
-    $self->{_left} = undef;     
+    $self->{_left} = undef;
     return $left;
 }
 
 sub setRight {
     my ($self, $tree) = @_;
     (blessed($tree) && $tree->isa("Tree::Binary"))
-        || die "Insufficient Arguments : right argument must be a Tree::Binary object";        
+        || die "Insufficient Arguments : right argument must be a Tree::Binary object";
 	$tree->{_parent} = $self;
-    $self->{_right} = $tree;    
+    $self->{_right} = $tree;
     unless ($tree->isLeaf()) {
         $tree->fixDepth();
     }
     else {
-        $tree->{_depth} = $self->getDepth() + 1; 
-    }         
+        $tree->{_depth} = $self->getDepth() + 1;
+    }
     $self;
 }
 
@@ -114,9 +114,9 @@ sub removeRight {
         $right->fixDepth();
     }
     else {
-        $right->{_depth} = 0; 
+        $right->{_depth} = 0;
     }
-    $self->{_right} = undef;    
+    $self->{_right} = undef;
     return $right;
 }
 
@@ -180,32 +180,32 @@ sub isRoot {
 ## misc
 
 # NOTE:
-# Occasionally one wants to have the 
+# Occasionally one wants to have the
 # depth available for various reasons
-# of convience. Sometimes that depth 
+# of convience. Sometimes that depth
 # field is not always correct.
 # If you create your tree in a top-down
 # manner, this is usually not an issue
 # since each time you either add a child
-# or create a tree you are doing it with 
+# or create a tree you are doing it with
 # a single tree and not a hierarchy.
 # If however you are creating your tree
-# bottom-up, then you might find that 
+# bottom-up, then you might find that
 # when adding hierarchies of trees, your
 # depth fields are all out of whack.
 # This is where this method comes into play
 # it will recurse down the tree and fix the
 # depth fields appropriately.
-# This method is called automatically when 
+# This method is called automatically when
 # a subtree is added to a child array
 sub fixDepth {
 	my ($self) = @_;
-	# make sure the tree's depth 
+	# make sure the tree's depth
 	# is up to date all the way down
 	$self->traverse(sub {
 			my ($tree) = @_;
             unless ($tree->isRoot()) {
-                $tree->{_depth} = $tree->getParent()->getDepth() + 1;            
+                $tree->{_depth} = $tree->getParent()->getDepth() + 1;
             }
             else {
                 $tree->{_depth} = 0;
@@ -219,7 +219,7 @@ sub traverse {
 	(defined($func)) || die "Insufficient Arguments : Cannot traverse without traversal function";
     (ref($func) eq "CODE") || die "Incorrect Object Type : traversal function is not a function";
     $func->($self);
-    $self->{_left}->traverse($func) if defined $self->{_left};    
+    $self->{_left}->traverse($func) if defined $self->{_left};
     $self->{_right}->traverse($func) if defined $self->{_right};
 }
 
@@ -239,7 +239,7 @@ sub size {
     my ($self) = @_;
     my $size = 1;
     $size += $self->{_left}->size() if $self->hasLeft();
-    $size += $self->{_right}->size() if $self->hasRight();    
+    $size += $self->{_right}->size() if $self->hasRight();
     return $size;
 }
 
@@ -247,30 +247,30 @@ sub height {
     my ($self) = @_;
     my ($left_height, $right_height) = (0, 0);
     $left_height = $self->{_left}->height() if $self->hasLeft();
-    $right_height = $self->{_right}->height() if $self->hasRight();    
+    $right_height = $self->{_right}->height() if $self->hasRight();
     return 1 + (($left_height > $right_height) ? $left_height : $right_height);
 }
 
 sub accept {
 	my ($self, $visitor) = @_;
     # it must be a blessed reference and ...
-	(blessed($visitor) && 
+	(blessed($visitor) &&
         # either a Tree::Simple::Visitor object, or ...
-        ($visitor->isa("Tree::Binary::Visitor") || 
+        ($visitor->isa("Tree::Binary::Visitor") ||
             # it must be an object which has a 'visit' method avaiable
-            $visitor->can('visit'))) 
+            $visitor->can('visit')))
 		|| die "Insufficient Arguments : You must supply a valid Visitor object";
 	$visitor->visit($self);
 }
 
 ## ----------------------------------------------------------------------------
-## cloning 
+## cloning
 
 sub clone {
     my ($self) = @_;
     # first clone the value in the node
-    my $cloned_node = _cloneNode($self->getNodeValue());   
-    # create a new Tree::Simple object 
+    my $cloned_node = _cloneNode($self->getNodeValue());
+    # create a new Tree::Simple object
     # here with the cloned node, however
     # we do not assign the parent node
     # since it really does not make a lot
@@ -286,26 +286,26 @@ sub clone {
     # the parent of the children to be that of
     # the clone (which is correct)
     $clone->setLeft($self->{_left}->clone()) if $self->hasLeft();
-    $clone->setRight($self->{_right}->clone()) if $self->hasRight();                  
-    # return the clone            
+    $clone->setRight($self->{_right}->clone()) if $self->hasRight();
+    # return the clone
     return $clone;
 }
 
-    
-# this allows cloning of single nodes while 
+
+# this allows cloning of single nodes while
 # retaining connections to a tree, this is sloppy
 sub cloneShallow {
 	my ($self) = @_;
 	my $cloned_tree = { %{$self} };
-	bless($cloned_tree, ref($self));    
+	bless($cloned_tree, ref($self));
 	# just clone the node (if you can)
     my $cloned_node =_cloneNode($self->getNodeValue());
-    (defined($cloned_node)) || die "Node did not clone : " . $self->getNodeValue();    
+    (defined($cloned_node)) || die "Node did not clone : " . $self->getNodeValue();
 	$cloned_tree->setNodeValue($cloned_node);
-	return $cloned_tree;	
+	return $cloned_tree;
 }
 
-# this is a helper function which 
+# this is a helper function which
 # recursively clones the node
 sub _cloneNode {
     my ($node, $seen) = @_;
@@ -319,13 +319,13 @@ sub _cloneNode {
     return $node unless ref($node);
     # if it is in the cache, then return that
     return $seen->{$node} if exists ${$seen}{$node};
-    # if it is an object, then ...	
+    # if it is an object, then ...
     if (blessed($node)) {
         # see if we can clone it
         if ($node->can('clone')) {
             $clone = $node->clone();
         }
-        # otherwise respect that it does 
+        # otherwise respect that it does
         # not want to be cloned
         else {
             $clone = $node;
@@ -357,8 +357,8 @@ sub _cloneNode {
             $clone = $node;
         }
     }
-    # store the clone in the cache and 
-    $seen->{$node} = $clone;        
+    # store the clone in the cache and
+    $seen->{$node} = $clone;
     # then return the clone
     return $clone;
 }
@@ -384,12 +384,12 @@ __END__
 
 =head1 NAME
 
-Tree::Binary - A Object Oriented Binary Tree for Perl
+Tree::Binary - An Object Oriented Binary Tree for Perl
 
 =head1 SYNOPSIS
 
   use Tree::Binary;
-  
+
   # a tree representaion of the expression:
   # 	((2 + 2) * (4 + 5))
   my $btree = Tree::Binary->new("*")
@@ -402,50 +402,50 @@ Tree::Binary - A Object Oriented Binary Tree for Perl
                               Tree::Binary->new("+")
                                           ->setLeft(Tree::Binary->new("4"))
                                           ->setRight(Tree::Binary->new("5"))
-                          );  
+                          );
   # Or shown visually:
   #     +---(*)---+
   #     |         |
   #  +-(+)-+   +-(+)-+
   #  |     |   |     |
   # (2)   (2) (4)   (5)
-  
+
   # get a InOrder visitor
   my $visitor = Tree::Binary::Visitor::InOrderTraversal->new();
-  $btree->accept($visitor);    
-  
+  $btree->accept($visitor);
+
   # print the expression in infix order
   print $visitor->getAccumulation(); # prints "2 + 2 * 4 + 5"
-  
+
   # get a PreOrder visitor
   my $visitor = Tree::Binary::Visitor::PreOrderTraversal->new();
-  $btree->accept($visitor);    
+  $btree->accept($visitor);
 
-  # print the expression in prefix order  
+  # print the expression in prefix order
   print $visitor->getAccumulation(); # prints "* + 2 2 + 4 5"
-  
+
   # get a PostOrder visitor
   my $visitor = Tree::Binary::Visitor::PostOrderTraversal->new();
-  $btree->accept($visitor);    
-  
-  # print the expression in postfix order  
-  print $visitor->getAccumulation(); # prints "2 2 + 4 5 + *"     
-  
+  $btree->accept($visitor);
+
+  # print the expression in postfix order
+  print $visitor->getAccumulation(); # prints "2 2 + 4 5 + *"
+
   # get a Breadth First visitor
   my $visitor = Tree::Binary::Visitor::BreadthFirstTraversal->new();
-  $btree->accept($visitor);    
+  $btree->accept($visitor);
 
-  # print the expression in breadth first order  
-  print $visitor->getAccumulation(); # prints "* + + 2 2 4 5"    
-  
+  # print the expression in breadth first order
+  print $visitor->getAccumulation(); # prints "* + + 2 2 4 5"
+
   # be sure to clean up all circular references
   $btree->DESTROY();
 
 =head1 DESCRIPTION
 
-This module is a fully object oriented implementation of a binary tree. Binary trees are a specialized type of tree which has only two possible branches, a left branch and a right branch. While it is possible to use an I<n>-ary tree, like L<Tree::Simple>, to fill most of your binary tree needs, a true binary tree object is just easier to mantain and use. 
+This module is a fully object oriented implementation of a binary tree. Binary trees are a specialized type of tree which has only two possible branches, a left branch and a right branch. While it is possible to use an I<n>-ary tree, like L<Tree::Simple>, to fill most of your binary tree needs, a true binary tree object is just easier to mantain and use.
 
-Binary Tree objects are especially useful (to me anyway) when building parse trees of things like mathematical or boolean expressions. They can also be used in games for such things as descisions trees. Binary trees are a well studied data structure and there is a wealth of information on the web about them. 
+Binary Tree objects are especially useful (to me anyway) when building parse trees of things like mathematical or boolean expressions. They can also be used in games for such things as descisions trees. Binary trees are a well studied data structure and there is a wealth of information on the web about them.
 
 This module uses exceptions and a minimal Design By Contract style. All method arguments are required unless specified in the documentation, if a required argument is not defined an exception will usually be thrown. Many arguments are also required to be of a specific type, for instance the C<$tree> argument to both the C<setLeft> and C<setRight> methods, B<must> be a B<Tree::Binary> object or an object derived from B<Tree::Binary>, otherwise an exception is thrown. This may seems harsh to some, but this allows me to have the confidence that my code works as I intend, and for you to enjoy the same level of confidence when using this module. Note however that this module does not use any Exception or Error module, the exceptions are just strings thrown with C<die>.
 
@@ -521,7 +521,7 @@ Returns the right subtree of the current Tree::Binary object.
 
 =back
 
-=head2 Informational 
+=head2 Informational
 
 =over 4
 
@@ -555,7 +555,7 @@ This method takes a single argument of a subroutine reference C<$func>. If the a
         my ($_tree) = @_;
         print (("\t" x $_tree->getDepth()), $_tree->getNodeValue(), "\n");
         });
-        
+
 =item B<mirror>
 
 This method will swap the left node for the right node and then do this recursively on down the tree. The result is the tree is a mirror image of what it was. So that given this tree:
@@ -564,7 +564,7 @@ This method will swap the left node for the right node and then do this recursiv
      |         |
   +-(*)-+   +-(+)-+
   |     |   |     |
- (1)   (2) (4)   (5)     
+ (1)   (2) (4)   (5)
 
 Calling C<mirror> will result in your tree now looking like this:
 
@@ -572,7 +572,7 @@ Calling C<mirror> will result in your tree now looking like this:
      |         |
   +-(+)-+   +-(*)-+
   |     |   |     |
- (5)   (4) (2)   (1) 
+ (5)   (4) (2)   (1)
 
 It should be noted that this is a destructive action, it will alter your current tree. Although it is easily reversable by simply calling C<mirror> again. However, if you are looking for a mirror copy of the tree, I advise calling C<clone> first.
 
@@ -596,7 +596,7 @@ Returns the length of the longest path from the current tree to the furthest lea
 
 =item B<accept ($visitor)>
 
-It accepts either a B<Tree::Binary::Visitor::*> object, or an object who has the C<visit> method available (tested with C<$visitor-E<gt>can('visit')>). If these qualifications are not met, and exception will be thrown. We then run the Visitor's C<visit> method giving the current tree as its argument. 
+It accepts either a B<Tree::Binary::Visitor::*> object, or an object who has the C<visit> method available (tested with C<$visitor-E<gt>can('visit')>). If these qualifications are not met, and exception will be thrown. We then run the Visitor's C<visit> method giving the current tree as its argument.
 
 =item B<clone>
 
@@ -624,20 +624,20 @@ Perl uses reference counting to manage the destruction of objects, and this can 
 
   # create a root
   my $root = Tree::Binary->new()
-  
+
   { # create a lexical scope
-  
+
       # create a subtree (with a child)
       my $subtree = Tree::Binary->new("1")
                           ->setRight(
                               Tree::Binary->new("1.1")
                           );
-                          
-      # add the subtree to the root                    
-      $root->setLeft($subtree);                    
-      
-      # ... do something with your trees 
-      
+
+      # add the subtree to the root
+      $root->setLeft($subtree);
+
+      # ... do something with your trees
+
       # remove the first child
       $root->removeLeft();
   }
@@ -646,23 +646,23 @@ At this point you might expect perl to reap C<$subtree> since it has been remove
 
   # create a root
   my $root = Tree::Binary->new()
-  
+
   { # create a lexical scope
-  
+
       # create a subtree (with a child)
       my $subtree = Tree::Binary->new("1")
                           ->setRight(
                               Tree::Binary->new("1.1")
                           );
-                          
-      # add the subtree to the root                    
-      $root->setLeft($subtree);                    
-      
-      # ... do something with your trees 
-      
+
+      # add the subtree to the root
+      $root->setLeft($subtree);
+
+      # ... do something with your trees
+
       # remove the first child and capture it
       my $removed = $root->removeLeft();
-      
+
       # now force destruction of the removed child
       $removed->DESTROY();
   }
@@ -677,7 +677,7 @@ As crazy as it might seem, there are no pure (non-search) binary tree implementa
 
 =item B<Tree>
 
-I cannot tell for sure, but this module may include a non-search binary tree in it. Its documentation is beyond non-existant, and I gave up after reading about 3/4 of the source code. It was uploaded in October 1999 and as far as I can tell it has ever been updated (the file modification dates are 05-Jan-1999). There is no actual file called Tree.pm, so CPAN can find no version number. It has no MANIFEST, README of Makefile.PL, so installation is entirely manual. Some of it even appears to have been written by Mark Jason Dominus, as far back as 1997 (possibly the source code from an old TPJ article on B-Trees by him). 
+I cannot tell for sure, but this module may include a non-search binary tree in it. Its documentation is beyond non-existant, and I gave up after reading about 3/4 of the source code. It was uploaded in October 1999 and as far as I can tell it has ever been updated (the file modification dates are 05-Jan-1999). There is no actual file called Tree.pm, so CPAN can find no version number. It has no MANIFEST, README of Makefile.PL, so installation is entirely manual. Some of it even appears to have been written by Mark Jason Dominus, as far back as 1997 (possibly the source code from an old TPJ article on B-Trees by him).
 
 =back
 
@@ -703,25 +703,25 @@ This module is part of a larger group, which are listed below.
 
 =head1 BUGS
 
-None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it. 
+None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it.
 
 =head1 CODE COVERAGE
 
 I use B<Devel::Cover> to test the code coverage of my tests, below is the B<Devel::Cover> report on this module test suite.
- 
+
  -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
  File                                           stmt branch   cond    sub    pod   time  total
  -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
  Tree/Binary.pm                                100.0   97.3   93.9  100.0  100.0   71.7   98.7
  Tree/Binary/Search.pm                          99.0   90.5   81.2  100.0  100.0   13.9   95.1
  Tree/Binary/Search/Node.pm                    100.0  100.0   66.7  100.0  100.0   11.7   98.2
- Tree/Binary/VisitorFactory.pm                 100.0  100.0    n/a  100.0  100.0    0.5  100.0 
+ Tree/Binary/VisitorFactory.pm                 100.0  100.0    n/a  100.0  100.0    0.5  100.0
  Tree/Binary/Visitor/Base.pm                   100.0  100.0   66.7  100.0  100.0    0.5   96.4
  Tree/Binary/Visitor/BreadthFirstTraversal.pm  100.0  100.0  100.0  100.0  100.0    0.0  100.0
  Tree/Binary/Visitor/InOrderTraversal.pm       100.0  100.0  100.0  100.0  100.0    1.1  100.0
  Tree/Binary/Visitor/PostOrderTraversal.pm     100.0  100.0  100.0  100.0  100.0    0.3  100.0
  Tree/Binary/Visitor/PreOrderTraversal.pm      100.0  100.0  100.0  100.0  100.0    0.3  100.0
- -------------------------------------------- ------ ------ ------ ------ ------ ------ ------ 
+ -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
  Total                                          99.6   94.4   88.8  100.0  100.0  100.0   97.4
  -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
 
@@ -736,7 +736,7 @@ Copyright 2004, 2005 by Infinity Interactive, Inc.
 L<http://www.iinteractive.com>
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+it under the same terms as Perl itself.
 
 =cut
 

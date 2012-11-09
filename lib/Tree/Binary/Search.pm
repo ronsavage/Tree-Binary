@@ -394,32 +394,15 @@ sub delete : method {
                         return TRUE;
                     }
                     else {
-                        # we need to find the inorder successor
-                        my $inorder_successor;
-                        my $current_right = $right;
-                        while (1) {                                                  
-                            # on the first pass, we can safely do 
-                            # this since we know that right has a 
-                            # left (see above 'if' statement)
-                            $inorder_successor = $current_right->getLeft();  
-                            # however, if we dont have a left on
-                            # subsequent rounds, then we need to ...
-                            unless ($inorder_successor) {
-                                # ... back up a bit, and get the parent
-                                # of the current right node and get
-                                # the inorder successor of that node
-                                $current_right = $current_right->getParent();
-                                $inorder_successor = $current_right->getLeft(); 
-                                last;
-                            }
-                            # we leave this loop if we are leftmost
-                            last if $inorder_successor->hasRight();                          
-                            # otherwise, we keep moving down
+			# go to the leftmost node in the right subtree
+                        my $inorder_successor = $right;
+                        my $current_right;
+
+			do {
                             $current_right = $inorder_successor;
-                        }
-#                         print STDERR ">>> right: " . $right->getNodeValue() . "\n";                            
-#                         print STDERR ">>> current right: " . $current_right->getNodeValue() . "\n";                        
-#                         print STDERR ">>> inorder successor: " . $inorder_successor->getNodeValue() . "\n";                                                
+				$inorder_successor = $inorder_successor->getLeft();
+			} while ( $inorder_successor->hasLeft() );
+
                         # now that are here, we can adjust the tree
                         if ($inorder_successor->hasRight()) {
                             $current_right->setLeft($inorder_successor->getRight());
