@@ -38,7 +38,7 @@ foreach ( @nodes )
 	push @output, test( "L", @{$_} );
 }
 
-ok(join('', split(/\n/, $expected) ) eq join('', @output), 'Node deletion works in V 0.08');
+ok(join('', split(/\n/, $expected) ) eq join('', @output), 'Node deletion works in V 1.00');
 
 sub test
 {
