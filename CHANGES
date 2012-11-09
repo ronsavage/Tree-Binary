@@ -2,7 +2,10 @@ Revision history for Perl extension Tree-Binary.
 
 1.00  Thu Nov  8 12:38:00 2012
 	- Ron Savage is now co-maint.
-	- Add patch kindly supplied by Karl Kastner 2009-04-05 as RT#44801.
+	- Warning for users of the Tree module, which also used to have a module called Tree::Binary:
+		The Tree::Binary /distro/ V 1.00 (this one) contains Tree::Binary,
+		and the Tree /distro/ V 1.04 contains Tree::Binary2.
+	- Incorporate patch kindly supplied by Karl Kastner 2009-04-05 as RT#44801.
 	- Add t/15_Tree_Binary_delete_test.t, which is one of the test programs supplied by Karl.
 	- Rename Changes to CHANGES
 	- Use ini.report.pl (shipped with Module::Metadata::Changes) to add Changelog.ini to the distro.
