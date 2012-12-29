@@ -21,6 +21,7 @@ WriteMakefile
 	},
 	DISTNAME  => 'Tree-Binary',
 	NAME      => 'Tree::Binary',
+	LICENSE   => 'perl_5',
 	PL_FILES  => {},
 	PREREQ_PM =>
 	{

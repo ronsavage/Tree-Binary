@@ -3,7 +3,7 @@ use Module::Build;
 Module::Build -> new
 (
 	module_name    => 'Tree::Binary',
-	license        => 'perl',
+	license        => 'perl_5',
 	dist_abstract  => 'An Object Oriented Binary Tree for Perl',
 	dist_author    => 'Stevan Little (stevan@iinteractive.com)',
 	build_requires =>
