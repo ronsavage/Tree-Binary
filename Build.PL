@@ -8,8 +8,9 @@ Module::Build -> new
 	dist_author    => 'Stevan Little (stevan@iinteractive.com)',
 	build_requires =>
 	{
-		Test::More => 0.98,
-		Test::Pod  => 1.44,
+		Test::Simple        => 0.98,
+		Test::Pod           => 1.45,
+		Test::Pod::Coverage => 1.08,
 	},
 	configure_requires =>
 	{

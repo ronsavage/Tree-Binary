@@ -25,12 +25,13 @@ WriteMakefile
 	PL_FILES  => {},
 	PREREQ_PM =>
 	{
-		Scalar::Util    => 1.10,
-		strict          => 0,
-		Test::Exception => 0.15,
-	 	Test::More      => 0.94,
- 		Test::Pod       => 1.44,
-		warnings        => 0,
+		Scalar::Util        => 1.10,
+		strict              => 0,
+		Test::Exception     => 0.15,
+		Test::Simple        => 0.98,
+		Test::Pod           => 1.45,
+		Test::Pod::Coverage => 1.08,
+		warnings            => 0,
 	},
 	VERSION_FROM => 'lib/Tree/Binary.pm',
 );
