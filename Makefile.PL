@@ -28,7 +28,7 @@ WriteMakefile
 		Scalar::Util        => 1.10,
 		strict              => 0,
 		Test::Exception     => 0.15,
-		Test::Simple        => 0.98,
+		Test::More        => 0.98,
 		Test::Pod           => 1.45,
 		Test::Pod::Coverage => 1.08,
 		warnings            => 0,
