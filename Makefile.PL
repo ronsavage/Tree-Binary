@@ -29,8 +29,8 @@ WriteMakefile
 		strict              => 0,
 		Test::Exception     => 0.15,
 		Test::More        => 0.98,
-		Test::Pod           => 1.45,
-		Test::Pod::Coverage => 1.08,
+#		Test::Pod           => 1.45, # Make it optional. See t/pod.t
+#		Test::Pod::Coverage => 1.08, # Make it optional. See t/pod.t
 		warnings            => 0,
 	},
 	VERSION_FROM => 'lib/Tree/Binary.pm',

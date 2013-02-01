@@ -9,8 +9,8 @@ Module::Build -> new
 	build_requires =>
 	{
 		Test::More        => 0.98,
-		Test::Pod           => 1.45,
-		Test::Pod::Coverage => 1.08,
+#		Test::Pod           => 1.45, # Make it optional. See t/pod.t
+#		Test::Pod::Coverage => 1.08, # Make it optional. See t/pod.t
 	},
 	configure_requires =>
 	{
