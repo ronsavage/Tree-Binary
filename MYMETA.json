@@ -4,7 +4,7 @@
       "Stevan Little (stevan@iinteractive.com)"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Module::Build version 0.4003, CPAN::Meta::Converter version 2.120630",
+   "generated_by" : "Module::Build version 0.4204",
    "license" : [
       "perl_5"
    ],
@@ -16,8 +16,7 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Test::More" : "0.98",
-            "Test::Pod" : "1.44"
+            "Test::More" : "0.98"
          }
       },
       "configure" : {
