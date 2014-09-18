@@ -11,13 +11,13 @@ Module::Build -> new
 	dist_author    => 'Stevan Little (stevan@iinteractive.com)',
 	build_requires =>
 	{
-		Test::More        => 0.98,
-#		Test::Pod           => 1.45, # Make it optional. See xt/author/pod.t.
-#		Test::Pod::Coverage => 1.08, # Make it optional. See xt/author/pod.t.
+		'Test::More'          => 0.98,
+#		'Test::Pod'           => 1.45, # Make it optional. See xt/author/pod.t.
+#		'Test::Pod::Coverage' => 1.08, # Make it optional. See xt/author/pod.t.
 	},
 	configure_requires =>
 	{
-		Module::Build => 0.3800,
+		'Module::Build' => 0.3800,
 	},
 	meta_merge =>
 	{
@@ -28,10 +28,10 @@ Module::Build -> new
 	},
 	requires =>
 	{
-		constant            => 0,
-		Scalar::Util    => 1.10,
-		strict          => 0,
-		Test::Exception => 0.15,
-		warnings        => 0,
+		'constant'        => 0,
+		'Scalar::Util'    => 1.10,
+		'strict'          => 0,
+		'Test::Exception' => 0.15,
+		'warnings'        => 0,
 	},
 ) -> create_build_script();

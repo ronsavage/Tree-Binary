@@ -1,6 +1,6 @@
 Build.PL
 Changelog.ini
-CHANGES
+Changes
 lib/Tree/Binary.pm
 lib/Tree/Binary/Search.pm
 lib/Tree/Binary/Search/Node.pm
@@ -28,5 +28,5 @@ t/25_Tree_Binary_Search_Node_test.t
 t/30_Tree_Binary_Visitors_test.t
 t/31_Tree_Binary_Visitors_misc_test.t
 t/50_Tree_Binary_Theorem_Proofs_test.t
-t/pod.t
-t/pod_coverage.t
+xt/author/pod.t
+xt/author/pod_coverage.t

@@ -3,49 +3,50 @@ abstract: 'An Object Oriented Binary Tree for Perl'
 author:
   - 'Stevan Little (stevan@iinteractive.com)'
 build_requires:
-  Test::More: 0.98
+  Test::More: '0.98'
 configure_requires:
-  Module::Build: 0.38
+  Module::Build: '0.38'
 dynamic_config: 0
-generated_by: 'Module::Build version 0.4204, CPAN::Meta::Converter version 2.133380'
+generated_by: 'Module::Build version 0.421, CPAN::Meta::Converter version 2.142060'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Tree-Binary
 provides:
   Tree::Binary:
     file: lib/Tree/Binary.pm
-    version: 1.05
+    version: '1.05'
   Tree::Binary::Search:
     file: lib/Tree/Binary/Search.pm
-    version: 1.05
+    version: '1.05'
   Tree::Binary::Search::Node:
     file: lib/Tree/Binary/Search/Node.pm
-    version: 1.05
+    version: '1.05'
   Tree::Binary::Visitor::Base:
     file: lib/Tree/Binary/Visitor/Base.pm
-    version: 1.05
+    version: '1.05'
   Tree::Binary::Visitor::BreadthFirstTraversal:
     file: lib/Tree/Binary/Visitor/BreadthFirstTraversal.pm
-    version: 1.05
+    version: '1.05'
   Tree::Binary::Visitor::InOrderTraversal:
     file: lib/Tree/Binary/Visitor/InOrderTraversal.pm
-    version: 1.05
+    version: '1.05'
   Tree::Binary::Visitor::PostOrderTraversal:
     file: lib/Tree/Binary/Visitor/PostOrderTraversal.pm
-    version: 1.05
+    version: '1.05'
   Tree::Binary::Visitor::PreOrderTraversal:
     file: lib/Tree/Binary/Visitor/PreOrderTraversal.pm
-    version: 1.05
+    version: '1.05'
   Tree::Binary::VisitorFactory:
     file: lib/Tree/Binary/VisitorFactory.pm
-    version: 1.05
+    version: '1.05'
 requires:
-  Scalar::Util: 1.1
-  Test::Exception: 0.15
-  strict: 0
-  warnings: 0
+  Scalar::Util: '1.1'
+  Test::Exception: '0.15'
+  constant: '0'
+  strict: '0'
+  warnings: '0'
 resources:
   license: http://dev.perl.org/licenses/
-version: 1.05
+version: '1.05'

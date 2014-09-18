@@ -4,7 +4,7 @@
       "Stevan Little (stevan@iinteractive.com)"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Module::Build version 0.4204",
+   "generated_by" : "Module::Build version 0.421",
    "license" : [
       "perl_5"
    ],
@@ -28,6 +28,7 @@
          "requires" : {
             "Scalar::Util" : "1.1",
             "Test::Exception" : "0.15",
+            "constant" : "0",
             "strict" : "0",
             "warnings" : "0"
          }
