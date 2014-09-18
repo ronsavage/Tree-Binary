@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-
 # Test case : entire branch is deleted instead of single node only
 #
 # Copyright (C) Karl Kästner - Berlin, Germany

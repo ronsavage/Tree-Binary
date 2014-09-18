@@ -15,7 +15,7 @@ use constant EQUAL_TO     =>  0;
 use constant LESS_THAN    => -1;
 use constant GREATER_THAN =>  1;
 
-our $VERSION = '1.05';
+our $VERSION = '1.06';
 
 ## ----------------------------------------------------------------------------
 ## Tree::Binary::Search

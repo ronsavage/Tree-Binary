@@ -1,11 +1,9 @@
-#!/usr/local/bin/perl
-
 use strict;
 use warnings;
 
 use Test::More tests => 47;
 
-BEGIN { 
+BEGIN {
     use_ok('Tree::Binary');
 }
 
@@ -56,35 +54,35 @@ is($clone->getLeft()->getParent(), $clone, '... the parentage should be correct'
 is(ref($clone->getLeft()->getLeft()->getNodeValue()), "SCALAR", '... these should be scalar refs');
 is(ref($btree->getLeft()->getLeft()->getNodeValue()), "SCALAR", '... these should be scalar refs');
 # but different ones
-isnt($clone->getLeft()->getLeft()->getNodeValue(), $btree->getLeft()->getLeft()->getNodeValue(), 
+isnt($clone->getLeft()->getLeft()->getNodeValue(), $btree->getLeft()->getLeft()->getNodeValue(),
 	'... these should be different scalar refs');
 # with the same value
-is(${$clone->getLeft()->getLeft()->getNodeValue()}, ${$btree->getLeft()->getLeft()->getNodeValue()}, 
+is(${$clone->getLeft()->getLeft()->getNodeValue()}, ${$btree->getLeft()->getLeft()->getNodeValue()},
 	'... these should be the same value');
-    
-is($clone->getLeft()->getLeft()->getParent(), $clone->getLeft(), '... the parentage should be correct');   
-	
+
+is($clone->getLeft()->getLeft()->getParent(), $clone->getLeft(), '... the parentage should be correct');
+
 # they should both be array refs
 is(ref($clone->getRight()->getNodeValue()), "ARRAY", '... these should be array refs');
 is(ref($btree->getRight()->getNodeValue()), "ARRAY", '... these should be array refs');
 # but different ones
-isnt($clone->getRight()->getNodeValue(), $btree->getRight()->getNodeValue(), 
-	'... these should be different array refs');	
-# with the same value	
-is_deeply($clone->getRight()->getNodeValue(), $btree->getRight()->getNodeValue(), 
+isnt($clone->getRight()->getNodeValue(), $btree->getRight()->getNodeValue(),
+	'... these should be different array refs');
+# with the same value
+is_deeply($clone->getRight()->getNodeValue(), $btree->getRight()->getNodeValue(),
 	'... these should have the same contents');
-	
-is($clone->getRight()->getParent(), $clone, '... the parentage should be correct'); 
-    
+
+is($clone->getRight()->getParent(), $clone, '... the parentage should be correct');
+
 # they should both be hash refs
 is(ref($clone->getRight()->getRight()->getNodeValue()), "HASH", '... these should be hash refs');
 is(ref($btree->getRight()->getRight()->getNodeValue()), "HASH", '... these should be hash refs');
 # but different ones
-isnt($clone->getRight()->getRight()->getNodeValue(), $btree->getRight()->getRight()->getNodeValue(), 
-	'... these should be different hash refs');	
-# with the same value	
-is_deeply($clone->getRight()->getRight()->getNodeValue(), $btree->getRight()->getRight()->getNodeValue(), 
-	'... these should have the same contents');	
+isnt($clone->getRight()->getRight()->getNodeValue(), $btree->getRight()->getRight()->getNodeValue(),
+	'... these should be different hash refs');
+# with the same value
+is_deeply($clone->getRight()->getRight()->getNodeValue(), $btree->getRight()->getRight()->getNodeValue(),
+	'... these should have the same contents');
 
 is($clone->getRight()->getRight()->getParent(), $clone->getRight(), '... the parentage should be correct');
 
@@ -92,54 +90,54 @@ is($clone->getRight()->getRight()->getParent(), $clone->getRight(), '... the par
 is(ref($clone->getLeft()->getRight()->getNodeValue()), "CODE", '... these should be code refs');
 is(ref($btree->getLeft()->getRight()->getNodeValue()), "CODE", '... these should be code refs');
 # and still the same
-is($clone->getLeft()->getRight()->getNodeValue(), $btree->getLeft()->getRight()->getNodeValue(), 
+is($clone->getLeft()->getRight()->getNodeValue(), $btree->getLeft()->getRight()->getNodeValue(),
 	'... these should be the same code refs');
 
 is($clone->getLeft()->getRight()->getNodeValue()->(), $CODE_REF->(), '... this is equal');
 
-is($clone->getLeft()->getRight()->getParent(), $clone->getLeft(), '... the parentage should be correct'); 
+is($clone->getLeft()->getRight()->getParent(), $clone->getLeft(), '... the parentage should be correct');
 
 # they should both be reg-ex refs
 is(ref($clone->getRight()->getLeft()->getNodeValue()), "Regexp", '... these should be reg-ex refs');
 is(ref($btree->getRight()->getLeft()->getNodeValue()), "Regexp", '... these should be reg-ex refs');
 # and still the same
-is($clone->getRight()->getLeft()->getNodeValue(), $btree->getRight()->getLeft()->getNodeValue(), 
-	'... these should be the same reg-ex refs');	
-    
-is($clone->getRight()->getLeft()->getParent(), $clone->getRight(), '... the parentage should be correct');    
-	
+is($clone->getRight()->getLeft()->getNodeValue(), $btree->getRight()->getLeft()->getNodeValue(),
+	'... these should be the same reg-ex refs');
+
+is($clone->getRight()->getLeft()->getParent(), $clone->getRight(), '... the parentage should be correct');
+
 # they should both be misc object refs
 is(ref($clone->getLeft()->getLeft()->getLeft()->getNodeValue()), "Misc", '... these should be misc object refs');
 is(ref($btree->getLeft()->getLeft()->getLeft()->getNodeValue()), "Misc", '... these should be misc object refs');
 # and still the same
-is($clone->getLeft()->getLeft()->getLeft()->getNodeValue(), $btree->getLeft()->getLeft()->getLeft()->getNodeValue(), 
+is($clone->getLeft()->getLeft()->getLeft()->getNodeValue(), $btree->getLeft()->getLeft()->getLeft()->getNodeValue(),
 	'... these should be the same misc object refs');
-    
-is($clone->getLeft()->getLeft()->getLeft()->getParent(), $clone->getLeft()->getLeft(), '... the parentage should be correct');    
-    
+
+is($clone->getLeft()->getLeft()->getLeft()->getParent(), $clone->getLeft()->getLeft(), '... the parentage should be correct');
+
 # they should both be misc object refs
 is(ref($clone->getLeft()->getLeft()->getRight()->getNodeValue()), "REF", '... these should be ref to ref refs');
 is(ref($btree->getLeft()->getLeft()->getRight()->getNodeValue()), "REF", '... these should be ref to ref refs');
 # and still the same
-isnt(${$clone->getLeft()->getLeft()->getRight()->getNodeValue()}, ${$btree->getLeft()->getLeft()->getRight()->getNodeValue()}, 
-	'... these should be the same REF refs');  
+isnt(${$clone->getLeft()->getLeft()->getRight()->getNodeValue()}, ${$btree->getLeft()->getLeft()->getRight()->getNodeValue()},
+	'... these should be the same REF refs');
 # and still the same
-is(${${$clone->getLeft()->getLeft()->getRight()->getNodeValue()}}, ${${$btree->getLeft()->getLeft()->getRight()->getNodeValue()}}, 
-	'... these should be the same REF refs');    
-    
-is($clone->getLeft()->getLeft()->getRight()->getParent(), $clone->getLeft()->getLeft(), '... the parentage should be correct');                                         	
-	
+is(${${$clone->getLeft()->getLeft()->getRight()->getNodeValue()}}, ${${$btree->getLeft()->getLeft()->getRight()->getNodeValue()}},
+	'... these should be the same REF refs');
+
+is($clone->getLeft()->getLeft()->getRight()->getParent(), $clone->getLeft()->getLeft(), '... the parentage should be correct');
+
 # they should both be Tree::Binary objects
 is(ref($clone->getRight()->getLeft()->getRight()->getNodeValue()), "Tree::Binary", '... these should be Tree::Binary');
 is(ref($btree->getRight()->getLeft()->getRight()->getNodeValue()), "Tree::Binary", '... these should be Tree::Binary');
 # but different ones
-isnt($clone->getRight()->getLeft()->getRight()->getNodeValue(), $btree->getRight()->getLeft()->getRight()->getNodeValue(), 
-	'... these should be different Tree::Binary objects');	
-# with the same value	
-is($clone->getRight()->getLeft()->getRight()->getNodeValue()->getNodeValue(), $btree->getRight()->getLeft()->getRight()->getNodeValue()->getNodeValue(), 
-	'... these should have the same contents');	
-    
-is($clone->getRight()->getLeft()->getRight()->getParent(), $clone->getRight()->getLeft(), '... the parentage should be correct');     
+isnt($clone->getRight()->getLeft()->getRight()->getNodeValue(), $btree->getRight()->getLeft()->getRight()->getNodeValue(),
+	'... these should be different Tree::Binary objects');
+# with the same value
+is($clone->getRight()->getLeft()->getRight()->getNodeValue()->getNodeValue(), $btree->getRight()->getLeft()->getRight()->getNodeValue()->getNodeValue(),
+	'... these should have the same contents');
+
+is($clone->getRight()->getLeft()->getRight()->getParent(), $clone->getRight()->getLeft(), '... the parentage should be correct');
 
 # test cloneShallow
 
@@ -151,13 +149,13 @@ is_deeply(
 		[ $shallow_clone->getLeft(), $shallow_clone->getRight() ],
 		[ $btree->getLeft(), $btree->getRight() ],
 		'... the children are the same');
-		
+
 my $sub_tree = $btree->getRight()->getLeft()->getRight();
 my $sub_tree_clone = $sub_tree->cloneShallow();
 # but different ones
-isnt($sub_tree_clone->getNodeValue(), $sub_tree->getNodeValue(), 
-	'... these should be different Tree::Binary objects');		
-# with the same value	
-is($sub_tree_clone->getNodeValue()->getNodeValue(), $sub_tree->getNodeValue()->getNodeValue(), 
-	'... these should have the same contents');	
+isnt($sub_tree_clone->getNodeValue(), $sub_tree->getNodeValue(),
+	'... these should be different Tree::Binary objects');
+# with the same value
+is($sub_tree_clone->getNodeValue()->getNodeValue(), $sub_tree->getNodeValue()->getNodeValue(),
+	'... these should have the same contents');
 

@@ -1,7 +1,12 @@
 Revision history for Perl extension Tree-Binary.
 
-1.06  Not released
+1.06  Fri Sep 19 08:52:00 2014
 	- Rename CHANGES to Changes.
+	- Remove #!/usr/bin/perl from the 1st line of all test scripts.
+	- Move t/pod.t and t/pod_coverage.t into xt/author/.
+	- Add constant to the list of pre-reqs.
+	- Update Build.PL and Makefile.PL re putting this package on github.
+	- Add use strict and use warnings to Build.PL and Makefile.PL.
 
 1.05  Fri Nov  9 15:11:00 2012
 	- No code changes.

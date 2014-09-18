@@ -1,12 +1,10 @@
-#!/usr/bin/perl
-
 use strict;
 use warnings;
 
 use Test::More tests => 31;
 use Test::Exception;
 
-BEGIN { 
+BEGIN {
     use_ok('Tree::Binary::Search');
 }
 
@@ -101,7 +99,7 @@ throws_ok {
     $btree->update(G => 'g')
 } qr/Key Does Not Exist/, '... this should die';
 
-## delete 
+## delete
 
 throws_ok {
     $btree->delete(B => 'b')

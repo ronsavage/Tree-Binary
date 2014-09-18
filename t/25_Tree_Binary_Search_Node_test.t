@@ -1,12 +1,10 @@
-#!/usr/bin/perl
-
 use strict;
 use warnings;
 
 use Test::More tests => 9;
 use Test::Exception;
 
-BEGIN { 
+BEGIN {
     use_ok('Tree::Binary::Search::Node');
 }
 

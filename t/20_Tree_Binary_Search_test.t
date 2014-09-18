@@ -1,12 +1,10 @@
-#!/usr/bin/perl
-
 use strict;
 use warnings;
 
 use Test::More tests => 43;
 use Test::Exception;
 
-BEGIN { 
+BEGIN {
     use_ok('Tree::Binary::Search');
 }
 
@@ -96,20 +94,20 @@ cmp_ok($btree->height(), '==', 6, '... the tree is 6 nodes tall');
 
     my $btree2 = Tree::Binary::Search->new("BinaryTreeNode");
     isa_ok($btree2, 'Tree::Binary::Search');
-    
+
     # use this because I haven't yet
     can_ok($btree2, 'useStringComparison');
     $btree2->useStringComparison();
-    
+
     # insert 3 things to give the comparison
     # routine some exercise
     $btree2->insert(A => 'a');
     $btree2->insert(B => 'b');
     $btree2->insert(BinaryTreeNode->new(C => 'c'));
-    
+
     # now check that our subclass came out right
     my $tree = $btree2->getTree();
     isa_ok($tree, 'BinaryTreeNode');
     isa_ok($tree, 'Tree::Binary::Search::Node');
-    
+
 }

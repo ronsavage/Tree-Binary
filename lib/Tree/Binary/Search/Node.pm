@@ -6,7 +6,7 @@ use warnings;
 
 use Tree::Binary;
 
-our $VERSION = '1.05';
+our $VERSION = '1.06';
 
 our @ISA = qw(Tree::Binary);
 

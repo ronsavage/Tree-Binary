@@ -1,18 +1,16 @@
-#!/usr/bin/perl
-
 use strict;
 use warnings;
 
 use Test::More tests => 39;
 use Test::Exception;
 
-BEGIN { 
+BEGIN {
     use_ok('Tree::Binary::Visitor::Base');
     use_ok('Tree::Binary::VisitorFactory');
     use_ok('Tree::Binary::Visitor::PreOrderTraversal');
     use_ok('Tree::Binary::Visitor::PostOrderTraversal');
     use_ok('Tree::Binary::Visitor::InOrderTraversal');
-    use_ok('Tree::Binary::Visitor::BreadthFirstTraversal');    
+    use_ok('Tree::Binary::Visitor::BreadthFirstTraversal');
 }
 
 can_ok("Tree::Binary::Visitor::Base", 'new');
@@ -68,7 +66,7 @@ throws_ok {
 
 throws_ok {
     $visitor_factory->getVisitor()
-} qr/Insufficient Arguments/, '... this should die';	
+} qr/Insufficient Arguments/, '... this should die';
 
 foreach my $visitor_class (qw(
                         PreOrderTraversal
@@ -82,12 +80,12 @@ foreach my $visitor_class (qw(
     } qr/Insufficient Arguments/, '... this should die';
     throws_ok {
         $visitor->visit("Fail")
-    } qr/Insufficient Arguments/, '... this should die';    
+    } qr/Insufficient Arguments/, '... this should die';
     throws_ok {
         $visitor->visit([])
-    } qr/Insufficient Arguments/, '... this should die';    
+    } qr/Insufficient Arguments/, '... this should die';
     throws_ok {
         $visitor->visit(bless({}, 'Fail'))
-    } qr/Insufficient Arguments/, '... this should die';    
+    } qr/Insufficient Arguments/, '... this should die';
 }
 
