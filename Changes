@@ -1,5 +1,16 @@
 Revision history for Perl extension Tree-Binary.
 
+1.07  2016-04-25T09:26:00
+	- No code changes.
+	- Remove Build.PL.
+	- Move .gitignore from MANIFEST to MANIFEST.SKIP.
+	- Fix my licence (sic) mess so all references are to Perl. This involves edits to Makefile.PL
+		and LICENSE. See RT#113949. Thanx Kent Fredric.
+	- Fix Makefile.PL so modules only used for testing are in TEST_REQUIRES and not PREREQ_PM.
+		See RT#113948. Thanx Kent Fredric.
+	- Fix README so it more-or-less conforms to the Perl Foundation's guidelines at
+		http://www.perlfoundation.org/cpan_licensing_guidelines.
+
 1.06  Fri Sep 19 08:52:00 2014
 	- Rename CHANGES to Changes.
 	- Remove #!/usr/bin/perl from the 1st line of all test scripts.
