@@ -11,7 +11,7 @@ Revision history for Perl extension Tree-Binary.
 	- Fix README so it more-or-less conforms to the Perl Foundation's guidelines at
 		http://www.perlfoundation.org/cpan_licensing_guidelines.
 
-1.06  Fri Sep 19 08:52:00 2014
+1.06  2014-09-19T08:52:00
 	- Rename CHANGES to Changes.
 	- Remove #!/usr/bin/perl from the 1st line of all test scripts.
 	- Move t/pod.t and t/pod_coverage.t into xt/author/.
@@ -19,14 +19,14 @@ Revision history for Perl extension Tree-Binary.
 	- Update Build.PL and Makefile.PL re putting this package on github.
 	- Add use strict and use warnings to Build.PL and Makefile.PL.
 
-1.05  Fri Nov  9 15:11:00 2012
+1.05  2012-11-09T15:11:00
 	- No code changes.
 	- Fix tests which referred to Tree::Binary rather than Tree::Binary2. See V 1.00 below for details.
 	- Bump the version # to 1.05 to avoid problems with old versions of the Tree distro, which also had
 		a module called Tree::Binary, which causes PAUSE to not index Tree::Binary in this distro.
 		V 1.05 was chosen because the most recent version of Tree I released was V 1.04.
 
-1.00  Thu Nov  8 12:38:00 2012
+1.00  2012-11-08T12:38:00
 	- Ron Savage is now co-maint.
 	- Warning for users of the Tree module, which also used to have a module called Tree::Binary:
 		The Tree::Binary /distro/ V 1.00 (this one) contains Tree::Binary,
@@ -41,17 +41,17 @@ Revision history for Perl extension Tree-Binary.
 	- Add META.json and META.yml.
 	- Add MYMETA.json and MYMETA.yml to my repository.
 
-0.07  Thu May 26 12:00:00 2005
+0.07  2005-05-26T12:00:00
 	- Tree::Binary::Search
 		[ thanks to Jan Kratochvil for these ]
 	- Some error message corrections
 	- new min_key() and max_key() to get the node keys.
 
-0.06  Thu Nov 18 12:00:00 2004
+0.06  2004-11-18T12:00:00
 	- now using Scalar::Util::blessed() instead of  the convoluted UNIVERSAL::isa() stuff.
 	- added Scalar::Util as a dependency
 
-0.05  Tue Oct 12 12:00:00 2004
+0.05  2004-10-12T12:00:00
 	- fixed issue with the clone method where it
 		did not properly fix the parentel relations
 	- added tests and docs for this
@@ -60,7 +60,7 @@ Revision history for Perl extension Tree-Binary.
 		clone the nodes
 	- added test and docs for this
 
-0.04  Tue Aug 31 12:00:00 2004
+0.04  2004-08-31T12:00:00
 	- fixed memory leak in Tree::Binary, this is
 		related to a bug found in Tree::Simple. The
 		code is similar so I knew the issue would be
@@ -73,7 +73,7 @@ Revision history for Perl extension Tree-Binary.
 	- added documentation (copied from Tree::Simple)
 		relating to the use of the DESTROY method
 
-0.03  Wed Aug 25 12:00:00 2004
+0.03  2004-08-25T12:00:00
 	- added test with Theorems idea in the file
 		(50_Tree_Binary_Theorem_Proofs_test.t)
 	- Tree::Binary
@@ -87,7 +87,7 @@ Revision history for Perl extension Tree-Binary.
 	- added tests for these
 	- added documentation for these
 
-0.02  Tue Aug 24 12:00:00 2004
+0.02  2004-08-24T12:00:00
     - beefed up the test suite a lot
 	- Tree::Binary
 	- Added the 'mirror' method
@@ -101,5 +101,5 @@ Revision history for Perl extension Tree-Binary.
 	- added 'isEmpty' method to test if there is a
 	tree there yet
 
-0.01  Thu Aug 12 01:16:00 2004
+0.01  2004-08-12T01:16:00
 	- module released (today is my 31st birthday too!)
