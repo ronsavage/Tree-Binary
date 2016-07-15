@@ -728,7 +728,7 @@ As you can see if the corrected version we used a new variable to capture the re
 
 =head1 OTHER TREE MODULES
 
-As crazy as it might seem, there are no pure (non-search) binary tree implementations on CPAN (at least not that I could find). I found several balanaced trees of one kind or another (see the C<OTHER TREE MODULES> section of the Tree::Binary::Search documentation for that list). The closet thing I could find was the Tree module described below.
+As crazy as it might seem, there are no pure (non-search) binary tree implementations on CPAN (at least not that I could find). I found several balanced trees of one kind or another (see the C<OTHER TREE MODULES> section of the Tree::Binary::Search documentation for that list). The closet thing I could find was the Tree module described below.
 
 =over 4
 
