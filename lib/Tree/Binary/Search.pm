@@ -608,7 +608,7 @@ Return the length of the longest path from the root to the furthest leaf node.
 
 =item B<accept ($visitor)>
 
-This will pass the C<$visitor> object to the underlying Tree::Binary::Search::Node object's C<accept> method.
+This will pass the C<$visitor> object to the underlying Tree::Binary::Search::Node C<accept> method.
 
 =item B<DESTROY>
 
@@ -690,19 +690,18 @@ This is an implementation of a red-black tree which is a type of balanced binary
 
 =item B<Tree::BPTree>
 
-This module implements a B+ tree, rather than a binary search tree. In the authors own words, "B+ trees are balanced trees which provide an ordered map from keys to values. They are useful for indexing large bodies of data. They are similar to 2-3-4 Trees and Red-Black Trees. This implementation supports B+ trees using an arbitrary n value." I am not quite sure exactly how B+ Tree's work, but I am intrigued but this module. It seems to me to be well tested module as well. If you are looking for a B+ Tree, I suggest giving it a look.
+This module implements a B+ tree, rather than a binary search tree. In the authors own words, "B+ trees are balanced trees which provide an ordered map from keys to values. They are useful for indexing large bodies of data. They are similar to 2-3-4 Trees and Red-Black Trees. This implementation supports B+ trees using an arbitrary n value." I am not quite sure exactly how a B+ Tree works, but I am intrigued but this module. It seems to me to be well tested module as well. If you are looking for a B+ Tree, I suggest giving it a look.
 
 =item B<Tree::M>
 
-In its own words, this module "implement M-trees for efficient 'metric/multimedia-searches'". From what I can tell, this module is not a b-tree (binary search tree), but an m-tree, which is a tree optimized to handle multi-dimensional (spatial) data, such as latitude and longitude. It is a wrapper around a C++ library.
+In its own words, this module "implement M-trees for efficient 'metric/multimedia-searches". From what I can tell, this module is not a b-tree (binary search tree), but an m-tree, which is a tree optimized to handle multi-dimensional (spatial) data, such as latitude and longitude. It is a wrapper around a C++ library.
 
 =item B<Tree::FP>
 
-In the authors own words, "Tree:FP is a Perl implmentation of the FP-Tree based association rule mining algorithm (association rules == market basket analysis). For a detailed explanation, see "Mining Frequent Patterns without Candidate Generation" by Jiawei Han, Jian Pei, and Yiwen Yin, 2000. Contrarywise, most books on data mining will have information on this algorithm." While it sounds like a very cool thing, it is not a binary search tree.
-
+In the authors own words, "Tree:FP is a Perl implmentation of the FP-Tree based association rule mining algorithm (association rules == market basket analysis)". For a detailed explanation, see "Mining Frequent Patterns without Candidate Generation" by Jiawei Han, Jian Pei, and Yiwen Yin, 2000. Contrarywise, most books on data mining will have information on this algorithm. " While it sounds like a very cool thing, it is not a binary search tree".
 =item B<Tree::Ternary>
 
-This is a ternary search trees, as opposed to a binary search tree. Similar, but different. If two nodes isn't enough for you, I suggest taking a look at this. These is also an XS based implementation B<Tree::Ternary_XS>.
+This is a ternary search trees, as opposed to a binary search tree. Similar, but different. If two nodes are not enough for you, I suggest taking a look at this. These is also an XS based implementation B<Tree::Ternary_XS>.
 
 =item B<Tree>
 

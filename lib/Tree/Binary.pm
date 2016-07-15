@@ -470,7 +470,7 @@ This program ships as scripts/traverse.1.pl:
 
 	# Print the expression in postfix order.
 
-	print join(' ', $visitor -> getResults), "\n"; # Prints "2 2 + 4 5 + *'.
+	print join(' ', $visitor -> getResults), "\n"; # Prints '2 2 + 4 5 + *'.
 
 	# Get a BreadthFirst visitor.
 
@@ -529,7 +529,7 @@ This method sets C<$tree> to be the left subtree of the current Tree::Binary obj
 
 =item B<removeLeft>
 
-This method removed the left subtree of the current Tree::Binary object, making sure to remove all references to the current tree. However, in order to properly clean up and circular references the removed child might have, it is advised to call it's C<DESTROY> method. See the L<CIRCULAR REFERENCES> section for more information.
+This method removed the left subtree of the current Tree::Binary object, making sure to remove all references to the current tree. However, in order to properly clean up and circular references the removed child might have, it is advised to call the C<DESTROY> method. See the L<CIRCULAR REFERENCES> section for more information.
 
 =item B<setRight ($tree)>
 
@@ -537,7 +537,7 @@ This method sets C<$tree> to be the right subtree of the current Tree::Binary ob
 
 =item B<removeRight>
 
-This method removed the right subtree of the current Tree::Binary object, making sure to remove all references to the current tree. However, in order to properly clean up and circular references the removed child might have, it is advised to call it's C<DESTROY> method. See the L<CIRCULAR REFERENCES> section for more information.
+This method removed the right subtree of the current Tree::Binary object, making sure to remove all references to the current tree. However, in order to properly clean up and circular references the removed child might have, it is advised to call the C<DESTROY> method. See the L<CIRCULAR REFERENCES> section for more information.
 
 =back
 
@@ -601,10 +601,17 @@ This method will return true (C<1>) if the current Tree::Binary object is the ro
 
 This method takes a single argument of a subroutine reference C<$func>. If the argument is not defined and is not in fact a CODE reference then an exception is thrown. The function is then applied recursively to both subtrees of the invocant. Here is an example of a traversal function that will print out the hierarchy as a tabbed in list.
 
-  $tree->traverse(sub {
-        my ($_tree) = @_;
-        print (("\t" x $_tree->getDepth()), $_tree->getNodeValue(), "\n");
-        });
+This code is taken from scripts/traverse.1.pl:
+
+	$btree -> traverse
+	(
+		sub
+		{
+			my($tree) = @_;
+
+			print "\t" x $tree -> getDepth, $tree -> getNodeValue, "\n";
+		}
+	);
 
 =item B<mirror>
 
@@ -646,7 +653,7 @@ Returns the length of the longest path from the current tree to the furthest lea
 
 =item B<accept ($visitor)>
 
-It accepts either a B<Tree::Binary::Visitor::*> object, or an object who has the C<visit> method available (tested with C<$visitor-E<gt>can('visit')>). If these qualifications are not met, and exception will be thrown. We then run the Visitor's C<visit> method giving the current tree as its argument.
+It accepts either a B<Tree::Binary::Visitor::*> object, or an object who has the C<visit> method available (tested with C<$visitor-E<gt>can('visit')>). If these qualifications are not met, and exception will be thrown. We then run the Visitor C<visit> method giving the current tree as its argument.
 
 =item B<clone>
 
@@ -654,17 +661,17 @@ The clone method does a full deep-copy clone of the object, calling C<clone> rec
 
 =item B<cloneShallow>
 
-This method is an alternate option to the plain C<clone> method. This method allows the cloning of single B<Tree::Binary> object while retaining connections to the rest of the tree/hierarchy. This will attempt to call C<clone> on the invocant's node if the node is an object (and responds to C<$obj-E<gt>can('clone')>) otherwise it will just copy it.
+This method is an alternate option to the plain C<clone> method. This method allows the cloning of single B<Tree::Binary> object while retaining connections to the rest of the tree/hierarchy. This will attempt to call C<clone> on the invocant node if the node is an object (and responds to C<$obj-E<gt>can('clone')>) otherwise it will just copy it.
 
 =item B<DESTROY>
 
-To avoid memory leaks through uncleaned-up circular references, we implement the C<DESTROY> method. This method will attempt to call C<DESTROY> on each of its children (if it as any). This will result in a cascade of calls to C<DESTROY> on down the tree. It also cleans up it's parental relations as well.
+To avoid memory leaks through uncleaned-up circular references, we implement the C<DESTROY> method. This method will attempt to call C<DESTROY> on each of its children (if it as any). This will result in a cascade of calls to C<DESTROY> on down the tree. It also cleans up the parental relations as well.
 
-Because of perl's reference counting scheme and how that interacts with circular references, if you want an object to be properly reaped you should manually call C<DESTROY>. This is especially nessecary if your object has any children. See the section on L<CIRCULAR REFERENCES> for more information.
+Because of perl reference counting scheme and how that interacts with circular references, if you want an object to be properly reaped you should manually call C<DESTROY>. This is especially nessecary if your object has any children. See the section on L<CIRCULAR REFERENCES> for more information.
 
 =item B<fixDepth>
 
-For the most part, Tree::Binary will manage your tree's depth fields for you. But occasionally your tree's depth may get out of place. If you run this method, it will traverse your tree correcting the depth as it goes.
+For the most part, Tree::Binary will manage your tree depth fields for you. But occasionally your tree depth may get out of synch. If you run this method, it will traverse your tree correcting the depth as it goes.
 
 =back
 
