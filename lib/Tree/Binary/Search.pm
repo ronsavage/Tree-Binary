@@ -47,11 +47,11 @@ sub _init {
 
 sub _compare {
     my ($self, $current_key, $btree_key) = @_;
-    my $result = $self->{_comparison_func}->($btree_key, $current_key); 
+    my $result = $self->{_comparison_func}->($btree_key, $current_key);
     # catch non-numeric values here
     # as well as numbers that are not
     # within our acceptable range
-    ($result =~ /\d/ && ($result >= LESS_THAN && $result <= GREATER_THAN)) 
+    ($result =~ /\d/ && ($result >= LESS_THAN && $result <= GREATER_THAN))
         || die "Bad Value : got a bad value from the comparison function ($result)";
     return $result;
 }
@@ -71,9 +71,9 @@ sub useNumericComparison {
 
 sub setComparisonFunction {
     my ($self, $func) = @_;
-    (ref($func) eq "CODE") 
-        || die "Incorrect Object Type : comparison function is not a function"; 
-    $self->{_comparison_func} = $func;   
+    (ref($func) eq "CODE")
+        || die "Incorrect Object Type : comparison function is not a function";
+    $self->{_comparison_func} = $func;
 }
 
 ## ----------------------------------------------------------------------------
@@ -85,7 +85,7 @@ sub getTree {
 }
 
 ## ----------------------------------------------------------------------------
-## informational 
+## informational
 
 sub isEmpty {
     my ($self) = @_;
@@ -112,8 +112,8 @@ sub height {
 
 sub DESTROY {
     my ($self) = @_;
-    # be sure to call call the DESTROY method 
-    # on the underlying tree to ensure it is 
+    # be sure to call call the DESTROY method
+    # on the underlying tree to ensure it is
     # cleaned up properly
     ref($self->{_root}) && $self->{_root}->DESTROY();
 }
@@ -127,18 +127,18 @@ sub insert {
     if (defined $key && defined $value) {
         $btree = $self->{_root}->new($key, $value);
     }
-    elsif (!defined $value && 
+    elsif (!defined $value &&
            (blessed($key) && $key->isa("Tree::Binary::Search::Node"))) {
         $btree = $key;
     }
     else {
         die "Insufficient Arguments : bad arguments to insert";
     }
-    # if the root is not a reference, then 
+    # if the root is not a reference, then
     # we dont yet have a root, so ...
     if ($self->isEmpty()) {
-        (defined($self->{_comparison_func})) 
-            || die "Illegal Operation : No comparison function set";    
+        (defined($self->{_comparison_func}))
+            || die "Illegal Operation : No comparison function set";
         $self->{_root} = $btree;
     }
     else {
@@ -147,13 +147,13 @@ sub insert {
             my $comparison = $self->_compare($current->getNodeKey(), $btree->getNodeKey());
             # if it is equal to, then throw
             # an exception since you can insert
-            # duplicates        
+            # duplicates
             die "Illegal Operation : you cannot insert a duplicate key" if $comparison == EQUAL_TO;
             # otherwise ...
             if ($comparison == LESS_THAN) {
                 # if it is less than, then we need
-                # to insert it down the left arm of 
-                # the tree, unless of course we 
+                # to insert it down the left arm of
+                # the tree, unless of course we
                 # dont have a left arm, in which case
                 # we just make one out of these vaules
                 if ($current->hasLeft()) {
@@ -167,8 +167,8 @@ sub insert {
             }
             elsif ($comparison == GREATER_THAN) {
                 # if it is greater than, then we need
-                # to insert it down the right arm of 
-                # the tree, unless of course we 
+                # to insert it down the right arm of
+                # the tree, unless of course we
                 # dont have a right arm, in which case
                 # we just make one out of these vaules
                 if ($current->hasRight()) {
@@ -177,7 +177,7 @@ sub insert {
                 else {
                     $current->setRight($btree);
                     last;
-                }        
+                }
             }
         }
     }
@@ -185,7 +185,7 @@ sub insert {
 
 sub update {
     my ($self, $key, $value) = @_;
-    (!$self->isEmpty()) 
+    (!$self->isEmpty())
         || die "Illegal Operation : Cannot update without first inserting";
     (defined $key && defined $value)
         || die "Insufficient Arguments : Must supply a key to find and a value to update";
@@ -193,7 +193,7 @@ sub update {
     my $current = $self->{_root};
     while (1) {
         my $comparison = $self->_compare($current->getNodeKey(), $key);
-        # if it is equal to 0, then we have      
+        # if it is equal to 0, then we have
         # found out value, and we update it
         if ($comparison == EQUAL_TO) {
             $current->setNodeValue($value);
@@ -210,15 +210,15 @@ sub update {
             # if it is greater than, then we need
             # to ...
             ($current->hasRight()) || die "Key Does Not Exist : the key ($key) does not exist in this tree";
-            $current = $current->getRight();  
-            next;     
+            $current = $current->getRight();
+            next;
         }
     }
 }
 
 sub select : method {
     my ($self, $key) = @_;
-    (!$self->isEmpty()) 
+    (!$self->isEmpty())
         || die "Illegal Operation : Cannot lookup anything without first inserting";
     (defined $key)
         || die "Insufficient Arguments : Must supply a key to find";
@@ -233,8 +233,8 @@ sub select : method {
         }
         elsif ($comparison == LESS_THAN) {
             # if it is less than, then we need
-            # to look down the left arm of 
-            # the tree, unless of course we 
+            # to look down the left arm of
+            # the tree, unless of course we
             # dont have a left arm, in which case
             # we just die
             ($current->hasLeft()) || die "Key Does Not Exist : the key ($key) does not exist in this tree";
@@ -243,14 +243,14 @@ sub select : method {
         }
         elsif ($comparison == GREATER_THAN) {
             # if it is greater than, then we need
-            # to look down the right arm of 
-            # the tree, unless of course we 
+            # to look down the right arm of
+            # the tree, unless of course we
             # dont have a right arm, in which case
             # we just dies
             ($current->hasRight()) || die "Key Does Not Exist : the key ($key) does not exist in this tree";
             $current = $current->getRight();
-            next;        
-        }   
+            next;
+        }
     }
     return $current->getNodeValue();
 }
@@ -258,7 +258,7 @@ sub select : method {
 sub exists : method {
     my ($self, $key) = @_;
     (defined $key)
-        || die "Insufficient Arguments : Must supply a key to find";    
+        || die "Insufficient Arguments : Must supply a key to find";
     return FALSE if $self->isEmpty();
 
     my $current = $self->{_root};
@@ -271,8 +271,8 @@ sub exists : method {
         }
         elsif ($comparison == -1) {
             # if it is less than, then we need
-            # to look down the left arm of 
-            # the tree, unless of course we 
+            # to look down the left arm of
+            # the tree, unless of course we
             # dont have a left arm, in which case
             # we just return FALSE
             ($current->hasLeft()) || return FALSE;
@@ -281,21 +281,21 @@ sub exists : method {
         }
         elsif ($comparison == 1) {
             # if it is greater than, then we need
-            # to look down the right arm of 
-            # the tree, unless of course we 
+            # to look down the right arm of
+            # the tree, unless of course we
             # dont have a right arm, in which case
             # we just return FALSE
             ($current->hasRight()) || return FALSE;
             $current = $current->getRight();
-            next;        
-        }   
+            next;
+        }
     }
 }
 
 sub _max_node {
     my ($self) = @_;
-    (!$self->isEmpty()) 
-        || die "Illegal Operation : Cannot get a max without first inserting";       
+    (!$self->isEmpty())
+        || die "Illegal Operation : Cannot get a max without first inserting";
     my $current = $self->{_root};
     $current = $current->getRight() while $current->hasRight();
     return $current;
@@ -303,8 +303,8 @@ sub _max_node {
 
 sub _min_node {
     my ($self) = @_;
-    (!$self->isEmpty()) 
-        || die "Illegal Operation : Cannot get a min without first inserting";    
+    (!$self->isEmpty())
+        || die "Illegal Operation : Cannot get a min without first inserting";
     my $current = $self->{_root};
     $current = $current->getLeft() while $current->hasLeft();
     return $current;
@@ -337,16 +337,16 @@ sub min {
 
 sub delete : method {
     my ($self, $key) = @_;
-    (!$self->isEmpty()) 
-        || die "Illegal Operation : Cannot delete without first inserting";    
-    (defined($key)) 
+    (!$self->isEmpty())
+        || die "Illegal Operation : Cannot delete without first inserting";
+    (defined($key))
         || die "Insufficient Arguments : you must supply a valid key to lookup in the tree";
 
     my $current = $self->{_root};
     while (1) {
         my $comparison = $self->_compare($current->getNodeKey(), $key);
         if ($comparison == 0) {
-            # if it is equal to, 
+            # if it is equal to,
             if ($current->isLeaf()) {
                 # no children at all, then ...
                 if ($current->isRoot()) {
@@ -410,13 +410,13 @@ sub delete : method {
                         else {
                             $inorder_successor->getParent()->removeLeft();
                         }
-                        $inorder_successor->setLeft($current->removeLeft()) if $current->hasLeft();                        
-                        $inorder_successor->setRight($current->removeRight()) if $current->hasRight();                        
+                        $inorder_successor->setLeft($current->removeLeft()) if $current->hasLeft();
+                        $inorder_successor->setRight($current->removeRight()) if $current->hasRight();
                         $self->_replaceInParent($current, $inorder_successor);
                         return TRUE;
                     }
                 }
-            }            
+            }
         }
         elsif ($comparison == -1) {
             # if it is less than, ...
@@ -428,8 +428,8 @@ sub delete : method {
             # if it is greater than, ...
             ($current->hasRight()) || die "Key Does Not Exist : the key ($key) does not exist in this tree";
             $current = $current->getRight();
-            next;        
-        }    
+            next;
+        }
     }
 }
 
@@ -438,7 +438,7 @@ sub delete : method {
 sub _replaceInParent {
     my ($self, $tree, $replacement) = @_;
     if ($tree->isRoot()) {
-        $replacement->makeRoot();    
+        $replacement->makeRoot();
         $self->{_root} = $replacement;
     }
     else {
@@ -464,69 +464,105 @@ Tree::Binary::Search - A Binary Search Tree for perl
 
 =head1 SYNOPSIS
 
-  use Tree::Binary::Search;
-    
-  my $btree = Tree::Binary::Search->new();
-    
-  $btree->useNumericComparison();
-  
-  $btree->insert(5 => "Five");
-  $btree->insert(2 => "Two");
-  $btree->insert(1 => "One");
-  $btree->insert(3 => "Three");
-  $btree->insert(4 => "Four");
-  $btree->insert(9 => "Nine");
-  $btree->insert(8 => "Eight");
-  $btree->insert(6 => "Six");
-  $btree->insert(7 => "Seven");
-  
-  # this creates the following tree:
-  #
-  #     +-------(5)----------+ 
-  #     |                    | 
-  #  +-(2)-+              +-(9)
-  #  |     |              |    
-  # (1)   (3)-+     +----(8)   
-  #           |     |          
-  #          (4)   (6)-+       
-  #                    |       
-  #                   (7)    
-  #
-  
-  $btree->exists(7); # return true
-  
-  $btree->update(7 => "Seven (updated)");
-  
-  $btree->select(9); # return 'Nine'
-  
-  $btree->min_key(); # returns 1
-     
-  $btree->min(); # returns 'One'
-  
-  $btree->max_key(); # return 9
-     
-  $btree->max(); # return 'Nine'
-  
-  $btree->delete(5);
-  
-  # this results in the following tree:
-  #
-  #     +-------(6)-------+ 
-  #     |                 | 
-  #  +-(2)-+           +-(9)
-  #  |     |           |    
-  # (1)   (3)-+     +-(8)   
-  #           |     |       
-  #          (4)   (7)  
-  #
+The program ships as scripts/search.1.pl:
+
+	#!/usr/bin/env perl
+
+	use strict;
+	use warnings;
+
+	use Tree::Binary::Search;
+
+	# -----------------------
+
+	my($btree) = Tree::Binary::Search -> new;
+
+	$btree -> useNumericComparison();
+
+	$btree -> insert(5 => 'Five');
+	$btree -> insert(2 => 'Two');
+	$btree -> insert(1 => 'One');
+	$btree -> insert(3 => 'Three');
+	$btree -> insert(4 => 'Four');
+	$btree -> insert(9 => 'Nine');
+	$btree -> insert(8 => 'Eight');
+	$btree -> insert(6 => 'Six');
+	$btree -> insert(7 => 'Seven');
+
+	# This creates the following tree (showing keys only):
+	#
+	#     +-------(5)----------+
+	#     |                    |
+	#  +-(2)-+              +-(9)
+	#  |     |              |
+	# (1)   (3)-+     +----(8)
+	#           |     |
+	#          (4)   (6)-+
+	#                    |
+	#                   (7)
+	#
+	# There is no method which will display the above,
+	# but a crude tree-printer follows.
+
+	my($parent_depth);
+
+	$btree -> getTree -> traverse
+	(
+		sub
+		{
+			my($tree) = @_;
+
+			print "\t" x $tree -> getDepth, $tree -> getNodeKey, ': ', $tree -> getNodeValue, "\n";
+		}
+	);
+
+	$btree -> exists(7); # Returns a true value (1 actually).
+
+	$btree -> update(7 => 'Seven (updated)');
+
+	$btree -> select(9); # Returns 'Nine'.
+
+	$btree -> min_key(); # Returns 1.
+
+	$btree -> min(); # Returns 'One'.
+
+	$btree -> max_key(); # Return 9.
+
+	$btree -> max(); # Returns 'Nine'.
+
+	$btree -> delete(5);
+
+	# This results in the following tree (showing keys only):
+	#
+	#     +-------(6)-------+
+	#     |                 |
+	#  +-(2)-+           +-(9)
+	#  |     |           |
+	# (1)   (3)-+     +-(8)
+	#           |     |
+	#          (4)   (7)
+	#
+
+	$btree -> getTree -> traverse
+	(
+		sub
+		{
+			my($tree) = @_;
+
+			print "\t" x $tree -> getDepth, $tree -> getNodeKey, ': ', $tree -> getNodeValue, "\n";
+		}
+	);
+
+If printing the tree is important, you are better off using
+L<Tree::DAG_Node|https://metacpan.org/pod/Tree::DAG_Node#tree2string-options-some_tree>.
 
 =head1 DESCRIPTION
 
-This module implements a binary search tree, which is a specialized usage of a binary tree. The basic principle is that all elements to the left are less than the root, all elements to the right are greater than the root. This reduces the search time for elements in the tree, by halving the number of nodes that need to be searched each time a node is examined. 
+This module implements a binary search tree, which is a specialized usage of a binary tree. The basic principle is that all elements to the left are less than the root, all elements to the right are greater than the root. This reduces the search time for elements in the tree, by halving the number of nodes that need to be searched each time a node is examined.
 
-Binary search trees are a very well understood data-structure and there is a wealth of information on the web about them. 
+Binary search trees are a very well understood data-structure and there is a wealth of information on the web about them.
 
-Trees are a naturally recursive data-structure, and therefore, tend to lend themselves well to recursive traversal functions. I however, have chosen to implement the tree traversal in this module without using recursive subroutines. This is partially a performance descision, even though perl can handle theoreticaly unlimited recursion, subroutine calls to have some overhead. My algorithm is still recursive, I have just chosen to keep it within a single subroutine. 
+Trees are a naturally recursive data-structure, and therefore, tend to lend themselves well to recursive traversal functions. I however, have chosen to implement the tree traversal in this module without using recursive subroutines. This is partially a performance descision, even though perl can handle theoreticaly unlimited recursion, subroutine calls to have some overhead. My algorithm is still recursive, I have just chosen to keep it within a single subroutine.
 
 =head1 METHODS
 
@@ -548,7 +584,7 @@ This will return the underlying binary tree object. It is a Tree::Binary::Search
 
 =back
 
-=head2 Informational 
+=head2 Informational
 
 =over 4
 
@@ -622,7 +658,7 @@ Finds and returns the C<$key> specified. If the key is not found, and exception 
 
 Deletes the node at C<$key> in the tree, and restructures the tree appropriately. If the key is not found, and exception will be thrown. An exception will also be thrown if C<$key>  is undefined, or if no keys have been inserted yet.
 
-Deletion in binary search trees is difficult, but as with most things about binary search trees, it has been well studied. After a few attempts on my own, I decided it was best to look for a real implementation and use that as my basis. I found C code for the GNU libavl (L<http://www.msu.edu/~pfaffben/avl/libavl.html/Deleting-from-a-BST.html>) online along with an excellent description of the code, so I pretty much copied this implementation directly from the code in this library. 
+Deletion in binary search trees is difficult, but as with most things about binary search trees, it has been well studied. After a few attempts on my own, I decided it was best to look for a real implementation and use that as my basis. I found C code for the GNU libavl (L<http://www.msu.edu/~pfaffben/avl/libavl.html/Deleting-from-a-BST.html>) online along with an excellent description of the code, so I pretty much copied this implementation directly from the code in this library.
 
 =item B<max_key>
 
@@ -644,7 +680,7 @@ Returns the minimum value stored in the tree (basically the left most node).
 
 =head1 OTHER TREE MODULES
 
-There are a number of advanced binary search tree-ish modules on CPAN, they are listed below for your reference. Tree::Binary::Search is not a balanced tree, which may not fit your needs, most of the trees below are balanced in one way or another. 
+There are a number of advanced binary search tree-ish modules on CPAN, they are listed below for your reference. Tree::Binary::Search is not a balanced tree, which may not fit your needs, most of the trees below are balanced in one way or another.
 
 =over 4
 
@@ -654,7 +690,7 @@ This is an implementation of a red-black tree which is a type of balanced binary
 
 =item B<Tree::BPTree>
 
-This module implements a B+ tree, rather than a binary search tree. In the authors own words, "B+ trees are balanced trees which provide an ordered map from keys to values. They are useful for indexing large bodies of data. They are similar to 2-3-4 Trees and Red-Black Trees. This implementation supports B+ trees using an arbitrary n value." I am not quite sure exactly how B+ Tree's work, but I am intrigued but this module. It seems to me to be well tested module as well. If you are looking for a B+ Tree, I suggest giving it a look. 
+This module implements a B+ tree, rather than a binary search tree. In the authors own words, "B+ trees are balanced trees which provide an ordered map from keys to values. They are useful for indexing large bodies of data. They are similar to 2-3-4 Trees and Red-Black Trees. This implementation supports B+ trees using an arbitrary n value." I am not quite sure exactly how B+ Tree's work, but I am intrigued but this module. It seems to me to be well tested module as well. If you are looking for a B+ Tree, I suggest giving it a look.
 
 =item B<Tree::M>
 
@@ -662,7 +698,7 @@ In its own words, this module "implement M-trees for efficient 'metric/multimedi
 
 =item B<Tree::FP>
 
-In the authors own words, "Tree:FP is a Perl implmentation of the FP-Tree based association rule mining algorithm (association rules == market basket analysis). For a detailed explanation, see "Mining Frequent Patterns without Candidate Generation" by Jiawei Han, Jian Pei, and Yiwen Yin, 2000. Contrarywise, most books on data mining will have information on this algorithm." While it sounds like a very cool thing, it is not a binary search tree. 
+In the authors own words, "Tree:FP is a Perl implmentation of the FP-Tree based association rule mining algorithm (association rules == market basket analysis). For a detailed explanation, see "Mining Frequent Patterns without Candidate Generation" by Jiawei Han, Jian Pei, and Yiwen Yin, 2000. Contrarywise, most books on data mining will have information on this algorithm." While it sounds like a very cool thing, it is not a binary search tree.
 
 =item B<Tree::Ternary>
 
@@ -670,7 +706,7 @@ This is a ternary search trees, as opposed to a binary search tree. Similar, but
 
 =item B<Tree>
 
-This is actually the only module I found on CPAN which seems to implement a Binary Search Tree. However, this module was uploaded in October 1999 and as far as I can tell, it has ever been updated (the file modification dates are 05-Jan-1999). There is no actual file called Tree.pm, so CPAN can find no version number. It has no MANIFEST, README of Makefile.PL, so installation is entirely manual. Its documentation is scarce at best, some of it even appears to have been written by Mark Jason Dominus, as far back as 1997 (possibly the source code from an old TPJ article on B-Trees by him). 
+This is actually the only module I found on CPAN which seems to implement a Binary Search Tree. However, this module was uploaded in October 1999 and as far as I can tell, it has ever been updated (the file modification dates are 05-Jan-1999). There is no actual file called Tree.pm, so CPAN can find no version number. It has no MANIFEST, README of Makefile.PL, so installation is entirely manual. Its documentation is scarce at best, some of it even appears to have been written by Mark Jason Dominus, as far back as 1997 (possibly the source code from an old TPJ article on B-Trees by him).
 
 =back
 
@@ -696,7 +732,7 @@ This module is part of a larger group, which are listed below.
 
 =head1 BUGS
 
-None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it. 
+None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it.
 
 =head1 CODE COVERAGE
 
@@ -727,6 +763,6 @@ Copyright 2004, 2005 by Infinity Interactive, Inc.
 L<http://www.iinteractive.com>
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+it under the same terms as Perl itself.
 
 =cut

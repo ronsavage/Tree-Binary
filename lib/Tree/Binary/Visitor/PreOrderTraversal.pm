@@ -21,10 +21,10 @@ sub visit {
 	my @results;
 	my $func;
     if ($self->{_filter_function}) {
-        $func = sub { push @results => $self->{_filter_function}->(@_) };    
+        $func = sub { push @results => $self->{_filter_function}->(@_) };
     }
     else {
-        $func = sub { push @results => $_[0]->getNodeValue() }; 
+        $func = sub { push @results => $_[0]->getNodeValue() };
     }
 	# then recursively to all its children
 	# if the object is configured that way
@@ -44,13 +44,15 @@ Tree::Binary::Visitor::PreOrderTraversal - Visitor object for Tree::Binary objec
 
 =head1 SYNOPSIS
 
+For a complete example, see also L<Tree::Binary/SYNOPSIS>.
+
   use Tree::Binary;
   use Tree::Binary::Visitor::PreOrderTraversal;
-  
+
   # create a visitor instance
-  my $visitor = Tree::Binary::Visitor::PreOrderTraversal->new();  							 
-  
-  # create a tree to visit 
+  my $visitor = Tree::Binary::Visitor::PreOrderTraversal->new();
+
+  # create a tree to visit
   # this is an expression tree
   # representing ((2 + 2) * (4 + 5))
   my $btree = Tree::Binary->new("*")
@@ -61,25 +63,25 @@ Tree::Binary::Visitor::PreOrderTraversal - Visitor object for Tree::Binary objec
                                 ->setLeft(Tree::Binary->new("4"))
                                 ->setRight(Tree::Binary->new("5")));
 
-  # by default this will collect all the 
-  # node values in depth-first order into 
-  # our results 
-  $tree->accept($visitor);	  
-  
+  # by default this will collect all the
+  # node values in depth-first order into
+  # our results
+  $tree->accept($visitor);
+
   # get our results and print them
-  print join ", ", $visitor->getResults();  # prints "*, +, 2, 2, + 4, 5" 
-  
-  # for more complex node objects, you can specify 
+  print join ", ", $visitor->getResults();  # prints "*, +, 2, 2, + 4, 5"
+
+  # for more complex node objects, you can specify
   # a node filter which will be used to extract the
   # information desired from each node
-  $visitor->setNodeFilter(sub { 
+  $visitor->setNodeFilter(sub {
                 my ($t) = @_;
                 return $t->getNodeValue()->description();
-                });  
+                });
 
 =head1 DESCRIPTION
 
-For the most part, this class is just a wrapper around B<Tree::Binary>'s C<traverse> method. 
+For the most part, this class is just a wrapper around B<Tree::Binary>'s C<traverse> method.
 
 =head1 METHODS
 
@@ -117,7 +119,7 @@ The C<visit> method accepts a Tree::Binary and applies the function set in C<new
 
 =head1 BUGS
 
-None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it. 
+None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it.
 
 =head1 CODE COVERAGE
 
@@ -134,6 +136,6 @@ Copyright 2004, 2005 by Infinity Interactive, Inc.
 L<http://www.iinteractive.com>
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+it under the same terms as Perl itself.
 
 =cut

@@ -388,58 +388,108 @@ Tree::Binary - An Object Oriented Binary Tree for Perl
 
 =head1 SYNOPSIS
 
-  use Tree::Binary;
+This program ships as scripts/traverse.1.pl:
 
-  # a tree representaion of the expression:
-  # 	((2 + 2) * (4 + 5))
-  my $btree = Tree::Binary->new("*")
-                          ->setLeft(
-                              Tree::Binary->new("+")
-                                          ->setLeft(Tree::Binary->new("2"))
-                                          ->setRight(Tree::Binary->new("2"))
-                          )
-                          ->setRight(
-                              Tree::Binary->new("+")
-                                          ->setLeft(Tree::Binary->new("4"))
-                                          ->setRight(Tree::Binary->new("5"))
-                          );
-  # Or shown visually:
-  #     +---(*)---+
-  #     |         |
-  #  +-(+)-+   +-(+)-+
-  #  |     |   |     |
-  # (2)   (2) (4)   (5)
+	#!/usr/bin/env perl
 
-  # get a InOrder visitor
-  my $visitor = Tree::Binary::Visitor::InOrderTraversal->new();
-  $btree->accept($visitor);
+	use strict;
+	use warnings;
 
-  # print the expression in infix order
-  print $visitor->getAccumulation(); # prints "2 + 2 * 4 + 5"
+	use Tree::Binary;
+	use Tree::Binary::Visitor::BreadthFirstTraversal;
+	use Tree::Binary::Visitor::InOrderTraversal;
+	use Tree::Binary::Visitor::PreOrderTraversal;
+	use Tree::Binary::Visitor::PostOrderTraversal;
 
-  # get a PreOrder visitor
-  my $visitor = Tree::Binary::Visitor::PreOrderTraversal->new();
-  $btree->accept($visitor);
+	# ---------------
 
-  # print the expression in prefix order
-  print $visitor->getAccumulation(); # prints "* + 2 2 + 4 5"
+	# A tree representaion of the expression:
+	#     ( (2 + 2) * (4 + 5) )
 
-  # get a PostOrder visitor
-  my $visitor = Tree::Binary::Visitor::PostOrderTraversal->new();
-  $btree->accept($visitor);
+	my($btree) = Tree::Binary -> new('*')
+					-> setLeft
+						(
+							Tree::Binary -> new('+')
+								-> setLeft(Tree::Binary->new('2') )
+								-> setRight(Tree::Binary->new('2') )
+						)
+					-> setRight
+						(
+							Tree::Binary->new('+')
+								-> setLeft(Tree::Binary->new('4') )
+								-> setRight(Tree::Binary->new('5') )
+						);
 
-  # print the expression in postfix order
-  print $visitor->getAccumulation(); # prints "2 2 + 4 5 + *"
+	# Or shown visually:
+	#     +---(*)---+
+	#     |         |
+	#  +-(+)-+   +-(+)-+
+	#  |     |   |     |
+	# (2)   (2) (4)   (5)
 
-  # get a Breadth First visitor
-  my $visitor = Tree::Binary::Visitor::BreadthFirstTraversal->new();
-  $btree->accept($visitor);
+	# There is no method which will display the above,
+	# but a crude tree-printer follows.
 
-  # print the expression in breadth first order
-  print $visitor->getAccumulation(); # prints "* + + 2 2 4 5"
+	my($parent_depth);
 
-  # be sure to clean up all circular references
-  $btree->DESTROY();
+	$btree -> traverse
+	(
+		sub
+		{
+			my($tree) = @_;
+
+			print "\t" x $tree -> getDepth, $tree -> getNodeValue, "\n";
+		}
+	);
+
+	# Get a InOrder visitor.
+
+	my($visitor) = Tree::Binary::Visitor::InOrderTraversal -> new;
+
+	$btree -> accept($visitor);
+
+	# Print the expression in infix order.
+
+	print join(' ', $visitor -> getResults), "\n"; # Prints '2 + 2 * 4 + 5'.
+
+	# Get a PreOrder visitor.
+
+	$visitor = Tree::Binary::Visitor::PreOrderTraversal -> new;
+
+	$btree -> accept($visitor);
+
+	# Print the expression in prefix order.
+
+	print join(' ', $visitor -> getResults), "\n"; # Prints '* + 2 2 + 4 5'.
+
+	# Get a PostOrder visitor.
+
+	$visitor = Tree::Binary::Visitor::PostOrderTraversal -> new;
+
+	$btree -> accept($visitor);
+
+	# Print the expression in postfix order.
+
+	print join(' ', $visitor -> getResults), "\n"; # Prints "2 2 + 4 5 + *'.
+
+	# Get a BreadthFirst visitor.
+
+	$visitor = Tree::Binary::Visitor::BreadthFirstTraversal -> new;
+
+	$btree -> accept($visitor);
+
+	# Print the expression in breadth first order.
+
+	print join(' ', $visitor -> getResults), "\n"; # Prints '* + + 2 2 4 5'.
+
+	# Be sure to clean up all circular references.
+	# Of course, since we're exiting immediately, this particular program
+	# does not need such a defensive manoeuvre.
+
+	$btree -> DESTROY();
+
+If printing the tree is important, you are better off using
+L<Tree::DAG_Node|https://metacpan.org/pod/Tree::DAG_Node#tree2string-options-some_tree>.
 
 =head1 DESCRIPTION
 
