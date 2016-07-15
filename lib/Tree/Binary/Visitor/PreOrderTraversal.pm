@@ -81,7 +81,7 @@ For a complete example, see also L<Tree::Binary/SYNOPSIS>.
 
 =head1 DESCRIPTION
 
-For the most part, this class is just a wrapper around B<Tree::Binary>'s C<traverse> method.
+For the most part, this class is just a wrapper around the B<Tree::Binary> C<traverse> method.
 
 =head1 METHODS
 
@@ -124,6 +124,10 @@ None that I am aware of. Of course, if you find a bug, let me know, and I will b
 =head1 CODE COVERAGE
 
 See the CODE COVERAGE section of Tree::Binary for details.
+
+=head1 Repository
+
+L<https://github.com/ronsavage/Tree-Binary>
 
 =head1 AUTHOR
 

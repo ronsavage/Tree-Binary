@@ -29,22 +29,22 @@ sub _init {
 
 sub getNodeFilter {
     my ($self) = @_;
-	return $self->{_filter_function}; 
+	return $self->{_filter_function};
 }
 
 sub clearNodeFilter {
     my ($self) = @_;
-	$self->{_filter_function} = undef;     
+	$self->{_filter_function} = undef;
 }
 
 sub setNodeFilter {
     my ($self, $filter_function) = @_;
-	(defined($filter_function) && ref($filter_function) eq "CODE") 
+	(defined($filter_function) && ref($filter_function) eq "CODE")
 		|| die "Insufficient Arguments : filter function argument must be a subroutine reference";
-	$self->{_filter_function} = $filter_function; 
+	$self->{_filter_function} = $filter_function;
 }
 
-# results methods 
+# results methods
 
 sub setResults {
     my ($self, @results) = @_;
@@ -74,19 +74,19 @@ Tree::Binary::Visitor::Base - A Visitor base class for Tree::Binary::Visitor::* 
 =head1 SYNOPSIS
 
   package MyTreeBinaryVisitor;
-  
+
   use strict;
   use warnings;
-  
+
   use Tree::Binary::Visitor::Base;
-  
-  our @ISA = qw(Tree::Binary::Visitor::Base); 
-  
+
+  our @ISA = qw(Tree::Binary::Visitor::Base);
+
   sub visit {
       my ($self, $tree) = @_;
       # ... implement your visit method
   }
-  
+
   1;
 
 =head1 DESCRIPTION
@@ -129,11 +129,15 @@ This is an abstract method and if called will throw an exception. This is the on
 
 =head1 BUGS
 
-None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it. 
+None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it.
 
 =head1 CODE COVERAGE
 
 See the CODE COVERAGE section of Tree::Binary for details.
+
+=head1 Repository
+
+L<https://github.com/ronsavage/Tree-Binary>
 
 =head1 AUTHOR
 
@@ -146,6 +150,6 @@ Copyright 2004, 2005 by Infinity Interactive, Inc.
 L<http://www.iinteractive.com>
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+it under the same terms as Perl itself.
 
 =cut
