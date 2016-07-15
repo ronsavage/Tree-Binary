@@ -790,6 +790,8 @@ L<https://github.com/ronsavage/Tree-Binary>
 
 stevan little, E<lt>stevan@iinteractive.comE<gt>
 
+Since V 1.00, Ron Savage I<E<lt>ron@savage.net.auE<gt>> has been the maintainer.
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright 2004, 2005 by Infinity Interactive, Inc.
