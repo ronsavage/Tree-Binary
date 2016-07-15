@@ -8,6 +8,7 @@ Revision history for Perl extension Tree-Binary.
 	- Add scripts/pod2html.sh.
 	- Update synopses in various modules to be runnable programs, and ship those programs in
 		scripts/.
+	- Update the docs in various small ways.
 
 1.07  2016-04-25T09:26:00
 	- No code changes.
