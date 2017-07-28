@@ -26,6 +26,7 @@ my(%params) =
 	},
 	DISTNAME  => 'Tree-Binary',
 	NAME      => 'Tree::Binary',
+	MIN_PERL_VERSION => 5.6.0,
 	PL_FILES  => {},
 	PREREQ_PM =>
 	{
