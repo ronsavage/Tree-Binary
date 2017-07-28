@@ -1,10 +1,9 @@
-
 package Tree::Binary::VisitorFactory;
 
 use strict;
 use warnings;
 
-our $VERSION = '1.08';
+our $VERSION = '1.09';
 
 sub new {
     my ($class) = @_;

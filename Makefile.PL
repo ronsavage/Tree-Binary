@@ -24,11 +24,11 @@ my(%params) =
 		COMPRESS => 'gzip',
 		SUFFIX   => 'gz'
 	},
-	DISTNAME  => 'Tree-Binary',
-	NAME      => 'Tree::Binary',
-	MIN_PERL_VERSION => 5.6.0,
-	PL_FILES  => {},
-	PREREQ_PM =>
+	DISTNAME			=> 'Tree-Binary',
+	NAME				=> 'Tree::Binary',
+	MIN_PERL_VERSION	=> 5.6.0,
+	PL_FILES			=> {},
+	PREREQ_PM			=>
 	{
 		'constant'		=> 0,
 		'Scalar::Util'	=> 1.10,
