@@ -25,8 +25,9 @@ my(%params) =
 		SUFFIX   => 'gz'
 	},
 	DISTNAME			=> 'Tree-Binary',
-	NAME				=> 'Tree::Binary',
+	LICENSE				=> 'perl',
 	MIN_PERL_VERSION	=> 5.6.0,
+	NAME				=> 'Tree::Binary',
 	PL_FILES			=> {},
 	PREREQ_PM			=>
 	{
@@ -60,7 +61,10 @@ if ($ExtUtils::MakeMaker::VERSION ge '6.46')
 		},
 		resources =>
 		{
-			bugtracker	=> 'https://rt.cpan.org/Public/Dist/Display.html?Name=Tree-Binary',
+			bugtracker =>
+			{
+				web => 'https://github.com/ronsavage/Tree-Binary/issues',
+			},
 			license		=> 'http://dev.perl.org/licenses/',
 			repository	=>
 			{
